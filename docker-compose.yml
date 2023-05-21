@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:14.2
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=db
+      - POSTGRES_HOST=127.0.0.1
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    restart: unless-stopped
+    networks:
+      - db_network
+
+  flask:
+    build:
+      context: .
+    command: bash -c "
+        python runserver.py
+      "
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://user:password@db:5432/db
+    env_file:
+      - .env
+    depends_on:
+      - db
+    restart: unless-stopped
+    networks:
+      - db_network
+
+volumes:
+  db_volume:
+
+networks:
+  db_network:
