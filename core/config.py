@@ -24,3 +24,4 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     SWAGGER_FORMS = BASE_DIR + '/swagger_forms/'
+    UPLOAD_FOLDER = BASE_DIR + '/media/'
