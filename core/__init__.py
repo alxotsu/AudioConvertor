@@ -8,12 +8,16 @@ from apps import route_views
 
 __all__ = ['app', 'api', 'db', 'Config']
 
-
 app = Flask(__name__)
 app.config.from_object(Config)
 api = Api(app)
 
-Swagger(app)
+SWAGGER_TEMPLATE = {"securityDefinitions": {"APIKeyHeader": {
+    "type": "apiKey",
+    "name": "Authorization",
+    "in": "header"
+}}}
+Swagger(app, template=SWAGGER_TEMPLATE)
 
 db = SQLAlchemy(app)
 

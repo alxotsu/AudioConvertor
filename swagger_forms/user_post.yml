@@ -1,0 +1,16 @@
+parameters:
+  - name: username
+    required: true
+    type: string
+    maxLength: 32
+    in: path
+responses:
+  200:
+    schema:
+      type: object
+      properties:
+        id:
+          type: integer
+        token:
+          type: string
+          example: "00f51931-2b47-4aff-8f33-59ea0bef4d56"
