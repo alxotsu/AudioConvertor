@@ -1,3 +1,7 @@
+from .exceptions import BaseServerException
+from core import Config
+
+
 def exception_catcher_decorator(method):
     def inner(*args, **kwargs):
         try:
@@ -9,4 +13,9 @@ def exception_catcher_decorator(method):
 
 
 def _handle_exception(e):
-    return str(e), 500  #TODO доделац
+    if isinstance(e, BaseServerException):
+        return e.to_response()
+    elif Config.DEBUG_MODE:
+        raise e
+    else:
+        return BaseServerException().to_response()

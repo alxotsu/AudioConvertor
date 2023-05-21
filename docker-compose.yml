@@ -32,11 +32,14 @@ services:
     depends_on:
       - db
     restart: unless-stopped
+    volumes:
+      - media_volume:/flask/media
     networks:
       - db_network
 
 volumes:
   db_volume:
+  media_volume:
 
 networks:
   db_network:

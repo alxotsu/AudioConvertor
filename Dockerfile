@@ -10,7 +10,10 @@ EXPOSE 443
 COPY ./requirements.txt ./requirements.txt
 
 RUN pip install --upgrade pip \
-    pip install --upgrade setuptools \
-    pip install -r requirements.txt
+    && pip install --upgrade setuptools \
+    && pip install -r requirements.txt \
+    && apt-get update && apt-get install -y ffmpeg
 
 COPY . .
+
+VOLUME ./media

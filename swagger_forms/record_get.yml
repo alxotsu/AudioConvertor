@@ -1,0 +1,32 @@
+security:
+  - APIKeyHeader: [ 'Authorization' ]
+
+parameters:
+  - name: user
+    description: user id
+    required: true
+    type: integer
+    in: query
+  - name: id
+    description: record id
+    required: true
+    type: string
+    in: query
+
+responses:
+  200:
+    schema:
+      type: file
+      format: binary
+  404:
+    schema:
+      type: string
+      example: "File is not found, or you don't have access"
+  425:
+    schema:
+      type: string
+      example: "The file has not been converted yet"
+  403:
+    schema:
+      type: string
+      example: "Invalid credentials."

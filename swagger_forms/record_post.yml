@@ -1,0 +1,29 @@
+security:
+  - APIKeyHeader: [ 'Authorization' ]
+consumes:
+  - multipart/form-data
+parameters:
+  - name: file
+    in: formData
+    description: The uploaded file data
+    required: true
+    type: file
+  - name: user
+    description: user id
+    required: true
+    type: integer
+    in: query
+
+responses:
+  201:
+    schema:
+      type: string
+      example: "http://host:5000/record?id=47cc0103-b7a9-4f11-a160-3b51d904daac&user=123"
+  403:
+    schema:
+      type: string
+      example: "Invalid credentials."
+  400:
+    schema:
+      type: string
+      example: ".wav file format required."
