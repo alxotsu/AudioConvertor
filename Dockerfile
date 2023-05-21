@@ -16,4 +16,6 @@ RUN pip install --upgrade pip \
 
 COPY . .
 
+RUN mkdir media
+
 VOLUME ./media
