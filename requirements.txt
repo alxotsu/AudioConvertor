@@ -4,5 +4,7 @@ flask-sqlalchemy==3.0.2
 psycopg2==2.9.3
 requests==2.27.1
 pydub==0.25.1
+Celery==5.2.0
+redis==3.5.3
 
 flasgger==0.9.7.1

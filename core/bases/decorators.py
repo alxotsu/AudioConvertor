@@ -9,6 +9,7 @@ def exception_catcher_decorator(method):
         except Exception as e:
             response = _handle_exception(e)
         return response
+
     return inner
 
 

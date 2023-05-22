@@ -17,25 +17,49 @@ services:
     networks:
       - db_network
 
+  redis:
+    image: redis:7.0.0
+    networks:
+      - redis_network
+    restart: unless-stopped
+
   flask:
     build:
       context: .
-    command: bash -c "
-        python runserver.py
-      "
+    command: python runserver.py
     ports:
       - "5000:5000"
     environment:
       - DATABASE_URL=postgresql+psycopg2://user:password@db:5432/db
+      - CELERY_BROKER_URL=redis://redis:6379/0
     env_file:
       - .env
     depends_on:
       - db
-    restart: unless-stopped
+      - redis
     volumes:
       - media_volume:/flask/media
     networks:
       - db_network
+      - redis_network
+    restart: unless-stopped
+
+  celery_worker:
+    build:
+      context: .
+    command: celery -A core.celery worker --loglevel=info
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://user:password@db:5432/db
+      - CELERY_BROKER_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+      - flask
+    volumes:
+      - media_volume:/flask/media
+    networks:
+      - db_network
+      - redis_network
+    restart: unless-stopped
 
 volumes:
   db_volume:
@@ -43,3 +67,4 @@ volumes:
 
 networks:
   db_network:
+  redis_network:

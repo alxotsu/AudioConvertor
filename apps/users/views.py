@@ -8,9 +8,9 @@ from .models import User, db
 class UserResource(Resource):
     method_decorators = (decorators.exception_catcher_decorator,)
 
-    @swag_from(Config.SWAGGER_FORMS + 'user_post.yml')
+    @swag_from(Config.SWAGGER_FORMS + "user_post.yml")
     def post(self, username):
         user = User(username=username)
         db.session.add(user)
         db.session.commit()
-        return {'id': user.id, 'token': user.token.__str__()}, 201
+        return {"id": user.id, "token": user.token.__str__()}, 201

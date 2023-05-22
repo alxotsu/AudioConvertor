@@ -1,6 +1,6 @@
 from core import db, app
 
-__all__ = ['main']
+__all__ = ["main"]
 
 
 def main():
@@ -9,5 +9,5 @@ def main():
         db.session.commit()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -10,5 +10,5 @@ def route_views():
         module_name = f"{package}.{package_name}"
         module = importlib.import_module(module_name)
 
-        if hasattr(module, 'route_views'):
+        if hasattr(module, "route_views"):
             module.route_views()
